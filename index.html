@@ -1,0 +1,23 @@
+<html>
+<body>
+	<button id="btn1">Download</button>
+</body>
+<script type="text/javascript">
+	const link = "http://example.com";
+
+	const btn = document.getElementById("btn1");
+	btn.addEventListener("click", async () => {
+		let res = await fetch(link);
+		
+		// let _blob = new Blob([atob(res.blob)], { type: "application/pdf" });
+		let blobUrl = URL.createObjectURL(await res.blob());
+
+		const a = document.createElement("a");
+		a.setAttribute("download", "TestFile.pdf");
+		a.setAttribute("href", blobUrl);
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+	});
+</script>
+</html>
